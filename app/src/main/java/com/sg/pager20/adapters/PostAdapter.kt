@@ -52,6 +52,7 @@ class PostAdapter(val viewPager: ViewPager2, val context: Context, val posts: Ar
             drawPost.drawPost(post, layout)
 
             postImage.setOnClickListener {
+
                 val intent = Intent(context, PostDetailsActivity::class.java)
                 intent.putExtra(DETAIL_POST_EXSTRA, post.postNum)
                 context.startActivities(arrayOf(intent))

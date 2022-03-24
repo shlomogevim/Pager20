@@ -1,16 +1,25 @@
 package com.sg.pager20.utilities
 
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Context
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.DialogInterface
+import android.content.res.Resources
 import android.util.Log
+import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
+import com.airbnb.lottie.LottieAnimationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.rpc.context.AttributeContext
+import com.sg.pager20.R
 import com.sg.pager20.models.Comment
 import com.sg.pager20.models.Post
 import com.sg.pager20.models.User
@@ -25,6 +34,45 @@ class Utility {
     val currentUser=FirebaseAuth.getInstance().currentUser
 
 
+
+ fun createDialog(context: Context,ind:Int) {
+        val dialog= Dialog(context)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.option_menu1)
+        val btn1 = dialog.findViewById<Button>(R.id.btn1_dialog)
+        val btn2 = dialog.findViewById<Button>(R.id.btn2_dialog)
+        val btn3 = dialog.findViewById<Button>(R.id.btn3_dialog)
+        val loti=dialog.findViewById<LottieAnimationView>(R.id.lottie_anim_dialog)
+      val  dialogText=dialog.findViewById<TextView>(R.id.text_dialog)
+
+     loti.setAnimation("right.json")
+     if (ind==1){
+         btn1.visibility= View.GONE
+         btn2.visibility= View.GONE
+         btn3.text="תלחץ חביבי, כדי לחזור להערות"
+         dialogText.text="תכתוב קודם הערה כלשהיא ואחר כך תלחץ..."
+     }
+     btn1.setOnClickListener {  }
+     btn2.setOnClickListener {  }
+        btn3.setOnClickListener {
+             dialog.dismiss()
+     }
+        dialog.show()
+
+    }
+ /*   fun createDialoge(  contex:Context,title:String,body:String) {
+        val alertDialog = AlertDialog.Builder(contex, R.style.RoundedCornerDialog).create()
+        alertDialog.setTitle(title)
+        alertDialog.setMessage(body)
+
+        alertDialog.setButton(
+            AlertDialog.BUTTON_NEUTRAL, "לחץ כאן כדי להמשיך ...",
+            DialogInterface.OnClickListener {
+                    dialog, which -> dialog.dismiss()
+                // finish()
+            })
+        alertDialog.show()
+    }*/
     fun convertToUser(snap: DocumentSnapshot?): User {
         var userName = "no userName"
         var fullName = "no fullName"
@@ -68,6 +116,7 @@ class Utility {
       data[COMMENT_TEXT]=commentText
       data[COMMENT_USER_NAME]=currentUser?.displayName.toString()
       data[COMMENT_USER_ID]=currentUser?.uid.toString()
+        data[COMMEND_TIME_STAMP]=FieldValue.serverTimestamp()
       val ref=FirebaseFirestore.getInstance().collection(COMMENT_REF).document(post.postNum.toString())
           .collection(COMMENT_LIST)
           ref.add(data)
@@ -90,7 +139,8 @@ class Utility {
         val comText=snap?.get(COMMENT_TEXT).toString()
         val comUserName=snap?.get(COMMENT_USER_NAME).toString()
         val comUserId=snap?.get(COMMENT_USER_ID).toString()
-        val newComment=Comment(comId,postId,comText,comUserName,comUserId)
+        val timestamp=snap?.getTimestamp(COMMEND_TIME_STAMP)
+        val newComment=Comment(comId,postId,comText,comUserName,comUserId,timestamp)
         return newComment
     }
 

@@ -52,5 +52,6 @@ const val COMMENT_USER_NAME="comment_user_name"
 const val COMMENT_USER_ID="comment_user_id"
 const val COMMENT_POST_ID="comment_post_id"
 const val COMMENT_ID="comment_id"
+const val COMMEND_TIME_STAMP="comment_time_stamp"
 
 

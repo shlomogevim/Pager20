@@ -31,24 +31,45 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:layout_toRightOf="@id/user_profile_image_comment"
-           >
-
-            <TextView
-                android:id="@+id/user_name_comment"
-                android:layout_width="wrap_content"
+            android:layout_toRightOf="@id/user_profile_image_comment" >
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_alignParentTop="true"
-                android:text="user name"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:id="@+id/layoutComment_Hadline">
+                <TextView
+                    android:id="@+id/user_name_comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="user name"
+
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/commentTimestampTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+
+                    android:text="oct 17 7:30pm"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+
+
+            </RelativeLayout>
+
+
+
 
             <TextView
                 android:id="@+id/comment_comment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/user_name_comment"
+                android:layout_below="@id/layoutComment_Hadline"
                 android:text="comment text"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
