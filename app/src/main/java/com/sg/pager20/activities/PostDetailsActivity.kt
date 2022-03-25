@@ -65,9 +65,16 @@ class PostDetailsActivity : AppCompatActivity(), CommentsOptionClickListener {
         binding.profileBtn.setOnClickListener {
             startActivity(Intent(this, AccountSettingActivity::class.java))
         }
+
+
         binding.profileImageComment.setOnClickListener {
             addComment()
         }
+        binding.postCommentText.setOnClickListener {
+            addComment()
+        }
+
+
     }
 
     override fun onStart() {
@@ -104,11 +111,13 @@ class PostDetailsActivity : AppCompatActivity(), CommentsOptionClickListener {
     private fun addComment() {
         //util.logi("PostDetails  112                               currentUser=$currentUser")
         if (currentUser == null) {
-              util.createDialog(this, 1)
+                  hideKeyboard()
+                 util.createDialog(this, 1)
         } else {
             val commentText = binding.postCommentText.text.toString()
             if (commentText == "") {
-                util.toasti(this, " היי , קודם תכתוב משהו בהערה ואחר כך תלחץ ...")
+               // util.toasti(this, " היי , קודם תכתוב משהו בהערה ואחר כך תלחץ ...")
+                util.createDialog(this, 2)
             } else {
                 binding.postCommentText.text.clear()
                 hideKeyboard()
@@ -124,7 +133,6 @@ class PostDetailsActivity : AppCompatActivity(), CommentsOptionClickListener {
             }
         }
     }
-
 
 
     private fun findCurrentPost() {
