@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+
         android:id="@+id/btnLayout_dialog">
         <Button
             android:id="@+id/btn1_dialog"
@@ -48,20 +49,44 @@
         android:layout_height="wrap_content"
         android:id="@+id/text_dialog1"
         android:text="here is our text"
+        android:gravity="center"
         android:textSize="14sp"
         android:textColor="#3C1A5B"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/lottie_anim_dialog"
+         android:layout_below="@id/lottie_anim_dialog"
         android:padding="5dp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/text_dialog2"
         android:text="here is our text"
+        android:gravity="center"
         android:textSize="14sp"
         android:textColor="#3C1A5B"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/text_dialog1"
+        android:padding="1dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_dialog3"
+        android:text="here is our text"
+        android:gravity="center"
+        android:textSize="14sp"
+        android:textColor="#3C1A5B"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/text_dialog2"
+        android:padding="1dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_dialog4"
+        android:text="here is our text"
+        android:gravity="center"
+        android:textSize="14sp"
+        android:textColor="#3C1A5B"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/text_dialog3"
         android:padding="1dp"/>
     <Button
         android:id="@+id/btn3_dialog"
@@ -76,6 +101,6 @@ android:layout_marginBottom="10dp"
        android:layout_centerHorizontal="true"
         android:textColor="@color/white"
         android:textSize="14sp"
-        android:layout_below="@id/text_dialog2"/>
+        android:layout_below="@id/text_dialog4"/>
 
 </RelativeLayout>

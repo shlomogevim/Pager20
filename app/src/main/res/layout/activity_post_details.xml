@@ -70,7 +70,7 @@
             android:id="@+id/signUpBtn"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
-            android:text="הרשם"
+            android:text="---"
             android:textSize="16sp"
             android:textColor="@color/white"
             android:fontFamily="@font/a103_gadi_almog_regular_aaa"

@@ -33,12 +33,34 @@ class PostAdapter(val viewPager: ViewPager2, val context: Context, val posts: Ar
 
     override fun onBindViewHolder(holder: PagerViewHolder, position: Int) {
         holder.bindImage(posts[position])
+       prepareMoreImage(position+1)
 
         //---------------------
         if (position == posts.size - 2) {
             viewPager.post(run)
         }
         //------------------
+    }
+
+    private fun prepareMoreImage(position: Int) {
+        var pos=position
+
+         if (pos<posts.size){
+                loadImage(pos)
+         }else{
+             pos=0
+        }
+        pos++
+        if (pos<posts.size){
+            loadImage(pos)
+        }else{
+            pos=0
+        }
+
+    }
+
+    private fun loadImage(pos: Int) {
+
     }
 
 
@@ -58,7 +80,11 @@ class PostAdapter(val viewPager: ViewPager2, val context: Context, val posts: Ar
                 context.startActivities(arrayOf(intent))
             }
         }
+        fun bindImageCor(post: Post) {
+            val layout = itemView?.findViewById<ConstraintLayout>(R.id.itemLayout)
+            drawPost.drawPost(post, layout)
 
+        }
     }
 
 

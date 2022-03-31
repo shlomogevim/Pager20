@@ -1,5 +1,7 @@
 package com.sg.pager20.models
 
+import com.google.firebase.Timestamp
+
 data class Post(
     var postId:String="",
     var postNum:Int=1,
@@ -13,5 +15,6 @@ data class Post(
     var postPadding:ArrayList<Int> = arrayListOf<Int>(),
     var postTextColor:ArrayList<String> = arrayListOf<String>(),
     var postFontFamily:Int=0,
-    var postRadiuas:Int=0
+    var postRadiuas:Int=0,
+    val timestamp: Timestamp?=null
 )

@@ -101,3 +101,16 @@ class MainActivity : AppCompatActivity() {
             })
     }
 }
+
+/*  val st1="The email address is already in use by another account."
+                        val st2="The given password is invalid. [ Password should be at least 6 characters ]"
+                        val st3="The email address is badly formatted."
+                        if (it.localizedMessage==st1){
+                            util.createDialog(this,9)
+                        }
+                        if (it.localizedMessage==st2){
+                            util.createDialog(this,10)
+                        }
+                        if (it.localizedMessage==st3){
+                            util.createDialog(this,11)
+                        }*/

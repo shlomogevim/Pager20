@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
@@ -55,22 +57,48 @@ class PostDetailsActivity : AppCompatActivity(), CommentsOptionClickListener {
     }
 
     private fun operateButtoms() {
-        binding.signUpBtn.setOnClickListener {
+       /* binding.signUpBtn.setOnClickListener {
             startActivity(Intent(this, SignUpActivity::class.java))
-        }
+        }*/
         binding.signInBtn.setOnClickListener {
-            startActivity(Intent(this, SignInActivity::class.java))
+          //startActivity(Intent(this, LoginActivity::class.java))
+          startActivity(Intent(this,RegisterActivity::class.java))
         }
 
         binding.profileBtn.setOnClickListener {
             startActivity(Intent(this, AccountSettingActivity::class.java))
         }
 
+        val textWatcher=object :TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                //util.logi("PostDetails  102                            currentUser=$currentUser")
+                if (currentUser==null){
+                    hideKeyboard()
+                    util.createDialog(this@PostDetailsActivity, 2)
+                }
+            }
 
-        binding.profileImageComment.setOnClickListener {
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {  }
+
+            override fun afterTextChanged(p0: Editable?) {  }
+
+        }
+
+        val profileC= binding.profileImageComment
+        val textC= binding.postCommentText
+        textC.addTextChangedListener(textWatcher)
+
+
+
+
+
+       profileC.setOnClickListener {
+            util.logi("PostDetails  109                             currentUser=$currentUser")
             addComment()
         }
-        binding.postCommentText.setOnClickListener {
+       textC.setOnClickListener {
+            util.logi("PostDetails  110                               currentUser=$currentUser")
+
             addComment()
         }
 
@@ -109,15 +137,17 @@ class PostDetailsActivity : AppCompatActivity(), CommentsOptionClickListener {
     }
 
     private fun addComment() {
-        //util.logi("PostDetails  112                               currentUser=$currentUser")
+       util.logi("PostDetails  112                               currentUser=$currentUser")
         if (currentUser == null) {
+         //   util.logi("PostDetails  113                               currentUser=$currentUser")
                   hideKeyboard()
                  util.createDialog(this, 1)
         } else {
+            util.logi("PostDetails  114                               currentUser=$currentUser")
             val commentText = binding.postCommentText.text.toString()
             if (commentText == "") {
                // util.toasti(this, " היי , קודם תכתוב משהו בהערה ואחר כך תלחץ ...")
-                util.createDialog(this, 2)
+                util.createDialog(this, 3)
             } else {
                 binding.postCommentText.text.clear()
                 hideKeyboard()

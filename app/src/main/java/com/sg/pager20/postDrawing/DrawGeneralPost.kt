@@ -5,12 +5,14 @@ import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.view.Gravity
+import android.view.RoundedCorner
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.res.ResourcesCompat
 import coil.load
+import coil.transform.RoundedCornersTransformation
 import com.sg.pager20.R
 import com.sg.pager20.models.Post
 import com.sg.pager20.utilities.CONSTANT
@@ -111,7 +113,12 @@ class DrawGeneralPost() {
 
       //  util.logi("DrawGeneralPost 101      \n     =========>  /n layout=$layout")
 
-        imageView.load(post.imageUri)
+        imageView.load(post.imageUri){
+            crossfade(true)
+            crossfade(1000)
+            transformations(RoundedCornersTransformation(50f))
+        }
+
 
         constraintSet.clone(layout)
 

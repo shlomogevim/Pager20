@@ -1,24 +1,17 @@
 package com.sg.pager20.utilities
 
-import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
-import android.content.Context.INPUT_METHOD_SERVICE
-import android.content.DialogInterface
-import android.content.res.Resources
 import android.util.Log
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
 import com.airbnb.lottie.LottieAnimationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.rpc.context.AttributeContext
 import com.sg.pager20.R
 import com.sg.pager20.models.Comment
 import com.sg.pager20.models.Post
@@ -35,9 +28,7 @@ class Utility {
 
 
     fun createDialog(context: Context, ind: Int) {
-        var s1 = ""
-        var s2 = ""
-        var s3 = ""
+
         val dialog = Dialog(context)
         dialog.setCancelable(false)
         dialog.setContentView(R.layout.option_menu1)
@@ -47,22 +38,18 @@ class Utility {
         val loti = dialog.findViewById<LottieAnimationView>(R.id.lottie_anim_dialog)
         val dialogText1 = dialog.findViewById<TextView>(R.id.text_dialog1)
         val dialogText2 = dialog.findViewById<TextView>(R.id.text_dialog2)
+        val dialogText3 = dialog.findViewById<TextView>(R.id.text_dialog3)
+        val dialogText4 = dialog.findViewById<TextView>(R.id.text_dialog4)
         btn1.visibility = View.GONE
         btn2.visibility = View.GONE
-        loti.setAnimation("right.json")
-        if (ind == 1) {
-            s1 = "אתה צריך להיכנס קודם"
-            s2 = "ורק אחר כך תוכל לכתוב הערות..."
-           s3= "לחץ פה כדי לחזור להערות"
-        }
-        if (ind == 2) {
-            s1 = "כתוב קודם הערה כלשהיא "
-            s2 = "ואחר כך תלחץ..."
-            s3= "לחץ פה כדי לחזור להערות"
-        }
-        dialogText1.text =s1
-        dialogText2.text =s2
-        btn3.text =s3
+
+        val arString:ArrayList<String> =getDialogMessage(ind)
+        dialogText1.text =arString[0]
+        dialogText2.text =arString[1]
+        dialogText3.text =arString[2]
+        dialogText4.text =arString[3]
+        btn3.text =arString[4]
+        loti.setAnimation(arString[5])
         btn1.setOnClickListener { }
         btn2.setOnClickListener { }
         btn3.setOnClickListener {
@@ -72,6 +59,111 @@ class Utility {
 
     }
 
+    private fun getDialogMessage(ind: Int): ArrayList<String> {
+        var stMessage1 = ""
+        var stMessage2 = ""
+        var stMessage3 = ""
+        var stMessage4 = ""
+        var stBackBtn = ""
+        var stAnimation = ""
+        if (ind ==2) {
+            stMessage1 = "אתה כרגע משתתף אנונימי "
+            stMessage2 ="ולכן אין לך אישור לכתוב הערות ,"
+            stMessage3 =  "אתה צריך קודם  להיכנס ..."
+            stMessage4 = ""
+            stBackBtn= "לחץ פה כדי לחזור להערות"
+            stAnimation="right.json"
+        }
+        if (ind == 1) {
+            stMessage1 = "אתה כרגע משתתף אנונימי "
+            stMessage2 ="ולכן לא יעזור לך ללחוץ על צלמית השלח ,"
+            stMessage3 =  "אתה צריך קודם להיכנס..."
+            stMessage4 = " "
+            stBackBtn= "לחץ פה כדי לחזור להערות"
+            stAnimation="right.json"
+        }
+        if (ind == 3) {
+            stMessage1 = " לא כתבת כלום בהערה ..."
+            stMessage2 = "קודם תכתוב משהו,"
+            stMessage3 = "ואחר כך לחץ על שלח ..."
+            stMessage4 = ""
+            stBackBtn= "לחץ פה כדי לחזור להערות"
+            stAnimation="right.json"
+        }
+        if (ind == 4) {
+            stMessage1 = " לא הכנסת מייל..."
+            stMessage2 = ""
+            stMessage3 = ""
+            stMessage4 = ""
+            stBackBtn= "לחץ פה כדי לחזור למסך הכניסה"
+            stAnimation="right.json"
+        }
+        if (ind == 5) {
+            stMessage1 = " לא הכנסת סיסמה..."
+            stMessage2 = ""
+            stMessage3 = ""
+            stMessage4 = ""
+            stBackBtn= "לחץ פה כדי לחזור למסך הכניסה"
+            stAnimation="right.json"
+        }
+        if (ind == 6) {
+            stMessage1 = " לא הכנסת שם משתמש..."
+            stMessage2 = ""
+            stMessage3 = ""
+            stMessage4 = ""
+            stBackBtn= "לחץ פה כדי לחזור למסך ההרשמה"
+            stAnimation="right.json"
+        }
+        if (ind == 7) {
+            stMessage1 = " לא הכנסת מייל..."
+            stMessage2 = ""
+            stMessage3 = ""
+            stMessage4 = ""
+            stBackBtn= "לחץ פה כדי לחזור למסך ההרשמה"
+            stAnimation="right.json"
+        }
+        if (ind == 8) {
+            stMessage1 = " לא הכנסת סיסמה..."
+            stMessage2 = ""
+            stMessage3 = ""
+            stMessage4 = ""
+            stBackBtn= "לחץ פה כדי לחזור למסך ההרשמה"
+            stAnimation="right.json"
+        }
+        if (ind == 9) {
+            stMessage1 = "חביבי, מישהו כבר משתמש במייל הזה,"
+            stMessage2 = "נסה להכניס מייל אחר"
+            stMessage3 = ""
+            stMessage4 = " "
+            stBackBtn= "לחץ פה כדי לחזור למסך ההרשמה"
+            stAnimation="right.json"
+        }
+        if (ind == 10) {
+            stMessage1 = "הסיסמה לא תקינה"
+            stMessage2 = "צריך להיות לפחות 6 מספרים"
+            stMessage3 = ""
+            stMessage4 = ""
+            stBackBtn= "לחץ פה כדי לחזור למסך ההרשמה"
+            stAnimation="right.json"
+        }
+        if (ind == 11) {
+            stMessage1 = "המייל שהכנסת לא תקין ... "
+            stMessage2 = "נסה להכניס מייל אחר"
+            stMessage3 = "כמובן יכול להיות סתם מייל פקטיבי"
+            stMessage4 = " משהוא כמו:        a@bc.com"
+            stBackBtn= "לחץ פה כדי לחזור למסך ההרשמה"
+            stAnimation="right.json"
+        }
+        if (ind == 12) {
+            stMessage1 = "השם הזה כבר קיים במערכת ... "
+            stMessage2 = "מצא לעצמך שם אחר"
+            stMessage3 = ""
+            stMessage4 = ""
+            stBackBtn= "לחץ פה כדי לחזור למסך ההרשמה"
+            stAnimation="right.json"
+        }
+        return arrayListOf(stMessage1,stMessage2,stMessage3,stMessage4,stBackBtn,stAnimation)
+    }
 
 
     /*   fun createDialoge(  contex:Context,title:String,body:String) {
@@ -158,6 +250,27 @@ class Utility {
         return newComment
     }
 
+    /*data[USER_ID] = uid!!
+        data[USER_FULLNAME] = fullName.lowercase(Locale.getDefault())
+        data[USER_USERNAME] = userName.lowercase(Locale.getDefault())
+        data[USER_EMAIL] = email
+        data[USER_PASSWORD] = password
+        data[USER_BIO] = "It's me man..."
+        data[USER_TIME] = FieldValue.serverTimestamp()*/
+
+    fun retrieveUserFromFirestore(snap: DocumentSnapshot?): User {
+
+        val id = snap?.get(USER_ID).toString()
+        val fullName = snap?.get(USER_FULLNAME).toString()
+        val name = snap?.get(USER_USERNAME).toString()
+        val email = snap?.get(USER_EMAIL).toString()
+        val password = snap?.get(USER_PASSWORD).toString()
+        val dio = snap?.get(USER_BIO).toString()
+        val timestamp = snap?.getTimestamp(USER_TIME)
+
+        val newUser = User(name,fullName,email,"",dio,id)
+        return newUser
+    }
 
     fun retrivePostFromFirestore(snap: DocumentSnapshot?): Post {
         val postId = snap?.get(POST_ID).toString()
@@ -625,25 +738,7 @@ class Utility {
         }
     }
 
-    suspend fun logi1(
-        element1: String,
-        element2: String = "",
-        element3: String = "",
-        element4: String = ""
-    ) {
-        if (element1 != "" && element2 == "" && element3 == "" && element4 == "") {
-            Log.d("gg", "${element1}")
-        }
-        if (element1 != "" && element2 != "" && element3 == "" && element4 == "") {
-            Log.d("gg", "${element1} ,${element2}")
-        }
-        if (element1 != "" && element2 != "" && element3 != "" && element4 == "") {
-            Log.d("gg", "${element1} ,${element2} ,${element3}")
-        }
-        if (element1 != "" && element2 != "" && element3 != "" && element4 != "") {
-            Log.d("gg", "${element1} ,${element2} ${element3},${element4}")
-        }
-    }
+
 
 
 }
