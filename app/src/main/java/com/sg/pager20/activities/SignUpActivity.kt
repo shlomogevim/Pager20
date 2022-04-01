@@ -64,7 +64,7 @@ class SignUpActivity : AppCompatActivity() {
           bodyDialog="כדי להכנס אתה צריך להירשם קודם ...  "
          createDialoge1(headDialog,bodyDialog)*/
 
-        // util.logi("SignUpActivity 116   userName=$userName   fullName=$fullName    email=$email  password=$password")
+        // util.logi("SignUpActivity 116   userNameString=$userNameString   fullName=$fullName    email=$email  password=$password")
 
         when {
             //TextUtils.isEmpty(fullName) ->{
@@ -74,7 +74,7 @@ class SignUpActivity : AppCompatActivity() {
                 // Toast.makeText(this, "Full name is empty", Toast.LENGTH_SHORT).show()
             }
 
-            // TextUtils.isEmpty(userName) ->{
+            // TextUtils.isEmpty(userNameString) ->{
             userName.isEmpty() ->{
                 bodyDialog="כדי להכנס אתה צריך להכניס שם משתמש ...  "
                 createDialoge1(headDialog,bodyDialog)
@@ -145,7 +145,7 @@ class SignUpActivity : AppCompatActivity() {
 
 
     private fun saveUserInfo(fullName: String, userName: String, email: String,password:String) {
-        util.logi("SignUpActivity 120   userName=$userName   fullName=$fullName    email=$email  password=$password")
+        util.logi("SignUpActivity 120   userNameString=$userName   fullName=$fullName    email=$email  password=$password")
 
         val data=HashMap<String,Any>()
         val uid = FirebaseAuth.getInstance().currentUser?.uid

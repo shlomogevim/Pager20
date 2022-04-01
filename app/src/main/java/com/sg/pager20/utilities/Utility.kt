@@ -29,7 +29,10 @@ class Utility {
 
     fun createDialog(context: Context, ind: Int) {
 
+            logi("Utility 32 createDialoge   =====> ind=$ind      contex=$context")
+
         val dialog = Dialog(context)
+        logi("Utility 35 createDialoge   =====> ind=$ind")
         dialog.setCancelable(false)
         dialog.setContentView(R.layout.option_menu1)
         val btn1 = dialog.findViewById<Button>(R.id.btn1_dialog)
@@ -43,7 +46,11 @@ class Utility {
         btn1.visibility = View.GONE
         btn2.visibility = View.GONE
 
+        logi("Utility48 createDialoge   =====> ind=$ind")
+
         val arString:ArrayList<String> =getDialogMessage(ind)
+
+        logi("Utility 52  createDialoge   =====> ind=$ind")
         dialogText1.text =arString[0]
         dialogText2.text =arString[1]
         dialogText3.text =arString[2]
@@ -108,8 +115,8 @@ class Utility {
         }
         if (ind == 6) {
             stMessage1 = " לא הכנסת שם משתמש..."
-            stMessage2 = ""
-            stMessage3 = ""
+            stMessage2 = "זה שם שיזהה אותך"
+            stMessage3 = "(יכול להיות פקטיבי)"
             stMessage4 = ""
             stBackBtn= "לחץ פה כדי לחזור למסך ההרשמה"
             stAnimation="right.json"
@@ -162,6 +169,14 @@ class Utility {
             stBackBtn= "לחץ פה כדי לחזור למסך ההרשמה"
             stAnimation="right.json"
         }
+        if (ind == 13) {
+            stMessage1 = "מזל טוב ... "
+            stMessage2 = "הצלחת להרשם בהצלחה"
+            stMessage3 = "ברוך הבא"
+            stMessage4 = ""
+            stBackBtn= "לחץ פה כדי לחזור למסך ההרשמה"
+            stAnimation="right.json"
+        }
         return arrayListOf(stMessage1,stMessage2,stMessage3,stMessage4,stBackBtn,stAnimation)
     }
 
@@ -180,7 +195,7 @@ class Utility {
            alertDialog.show()
        }*/
     fun convertToUser(snap: DocumentSnapshot?): User {
-        var userName = "no userName"
+        var userName = "no userNameString"
         var fullName = "no fullName"
         var email: String = "no email"
         var profileImage =
@@ -252,7 +267,7 @@ class Utility {
 
     /*data[USER_ID] = uid!!
         data[USER_FULLNAME] = fullName.lowercase(Locale.getDefault())
-        data[USER_USERNAME] = userName.lowercase(Locale.getDefault())
+        data[USER_USERNAME] = userNameString.lowercase(Locale.getDefault())
         data[USER_EMAIL] = email
         data[USER_PASSWORD] = password
         data[USER_BIO] = "It's me man..."
