@@ -30,6 +30,7 @@ class RegisterActivity : AppCompatActivity() {
      var nameString = ""
     var emailString = ""
     var passwordString = ""
+    var textSelector1=0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -99,31 +100,20 @@ class RegisterActivity : AppCompatActivity() {
 
     private suspend fun chkIfTextViewEmpty(): Boolean {
         var bol =false
-   /*    util.logi("RegisterActivity 103  inside  chkIfTextViewEmpty      =======>   bol=${nameString==""} ")
-       util.logi("RegisterActivity 104  inside  chkIfTextViewEmpty      =======>   bol=${nameString.isEmpty()} ")
-       util.logi("RegisterActivity 105  inside  chkIfTextViewEmpty      =======>   bol=${nameString.isNullOrBlank()} ")
-*/        when {
-          //  nameString == "" -> {
-            nameString.isEmpty() -> {
-                util.logi("RegisterActivity 109  inside  chkIfTextViewEmpty      =======>   bol=${nameString==""} ")
+//       util.logi("RegisterActivity 103  inside  chkIfTextViewEmpty      =======>   bol=${nameString==""} ")
+        when {
+                 nameString.isEmpty() -> {
 
-              /* withContext(dispatcher) {
-        doTheTask(DELAY)
-    }*/
+//                util.logi("RegisterActivity 109  inside  chkIfTextViewEmpty      =======>   bol=${nameString==""} ")
                 withContext(Dispatchers.Main){
-                    utilC.creat[eDialog1(this, 6)
-
-
+                       binding.usernameRegister.setText("נא להכניס שם משתמש ....")
                 }
 
-               /* coroutinScope.launch {
-                    utilC.createDialog(this, 6)
-                }*/
-
-                util.logi("RegisterActivity 113  inside  chkIfTextViewEmpty      =======>   bol=${nameString==""} ")
+//                util.logi("RegisterActivity 113  inside  chkIfTextViewEmpty      =======>   bol=${nameString==""} ")
 
                 bol =true
             }
+
             emailString == "" -> {
                 utilC.createDialog(this, 7)
                 bol = true

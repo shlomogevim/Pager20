@@ -164,7 +164,7 @@ class UtilCoutine {
         return arrayListOf(stMessage1,stMessage2,stMessage3,stMessage4,stBackBtn,stAnimation)
     }
 
-    fun createDialog1(context: CoroutineScope, ind: Int) {
+    fun createDialog1(context: Context, ind: Int) {
         util. logi("UtilCourtin  15 createDialoge   =====> ind=$ind      contex=$context")
 
         val dialog = Dialog(context)
