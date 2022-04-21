@@ -74,23 +74,16 @@ class PostDetailsActivity : AppCompatActivity(), CommentsOptionClickListener {
                 //util.logi("PostDetails  102                            currentUser=$currentUser")
                 if (currentUser==null){
                     hideKeyboard()
-                    util.createDialog(this@PostDetailsActivity, 2)
+                util.createDialog(this@PostDetailsActivity, 2)
                 }
             }
-
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {  }
-
             override fun afterTextChanged(p0: Editable?) {  }
-
         }
 
         val profileC= binding.profileImageComment
         val textC= binding.postCommentText
         textC.addTextChangedListener(textWatcher)
-
-
-
-
 
        profileC.setOnClickListener {
             util.logi("PostDetails  109                             currentUser=$currentUser")

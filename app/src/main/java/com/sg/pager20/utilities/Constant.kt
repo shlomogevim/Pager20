@@ -55,4 +55,6 @@ const val COMMENT_POST_ID="comment_post_id"
 const val COMMENT_ID="comment_id"
 const val COMMEND_TIME_STAMP="comment_time_stamp"
 
+const val DIALOG_EXSTRA="dealogexstra"
+
 

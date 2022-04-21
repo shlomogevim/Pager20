@@ -13,6 +13,9 @@
         android:supportsRtl="false"
         android:theme="@style/Theme.Pager20">
         <activity
+            android:name=".activities.DialogActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.RegisterActivity"
             android:exported="false" />
         <activity

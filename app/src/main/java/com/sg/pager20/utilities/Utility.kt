@@ -2,24 +2,31 @@ package com.sg.pager20.utilities
 
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import com.airbnb.lottie.LottieAnimationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sg.pager20.R
+import com.sg.pager20.activities.DialogActivity
 import com.sg.pager20.models.Comment
 import com.sg.pager20.models.Post
 import com.sg.pager20.models.User
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
+import kotlin.coroutines.suspendCoroutine
 
 
 class Utility {
@@ -29,10 +36,15 @@ class Utility {
 
     fun createDialog(context: Context, ind: Int) {
 
-            logi("Utility 32 createDialoge   =====> ind=$ind      contex=$context")
+        val intent= Intent(context, DialogActivity::class.java)
+        intent.putExtra(DIALOG_EXSTRA,ind)
+        context.startActivity(intent)
+
+
+   /*      //   logi("Utility 32 createDialoge   =====> ind=$ind      contex=$context")
 
         val dialog = Dialog(context)
-        logi("Utility 35 createDialoge   =====> ind=$ind")
+       // logi("Utility 39 createDialoge   =====> ind=$ind")
         dialog.setCancelable(false)
         dialog.setContentView(R.layout.option_menu1)
         val btn1 = dialog.findViewById<Button>(R.id.btn1_dialog)
@@ -46,11 +58,11 @@ class Utility {
         btn1.visibility = View.GONE
         btn2.visibility = View.GONE
 
-        logi("Utility48 createDialoge   =====> ind=$ind")
+    //   logi("Utility  createDialoge   =====> ind=$ind")
 
         val arString:ArrayList<String> =getDialogMessage(ind)
 
-        logi("Utility 52  createDialoge   =====> ind=$ind")
+    // m    logi("Utility 52  createDialoge   =====> ind=$ind")
         dialogText1.text =arString[0]
         dialogText2.text =arString[1]
         dialogText3.text =arString[2]
@@ -62,7 +74,7 @@ class Utility {
         btn3.setOnClickListener {
             dialog.dismiss()
         }
-        dialog.show()
+   dialog.show()*/
 
     }
 
@@ -81,14 +93,14 @@ class Utility {
             stBackBtn= "לחץ פה כדי לחזור להערות"
             stAnimation="right.json"
         }
-        if (ind == 1) {
+      /*  if (ind == 1) {
             stMessage1 = "אתה כרגע משתתף אנונימי "
             stMessage2 ="ולכן לא יעזור לך ללחוץ על צלמית השלח ,"
             stMessage3 =  "אתה צריך קודם להיכנס..."
             stMessage4 = " "
             stBackBtn= "לחץ פה כדי לחזור להערות"
             stAnimation="right.json"
-        }
+        }*/
         if (ind == 3) {
             stMessage1 = " לא כתבת כלום בהערה ..."
             stMessage2 = "קודם תכתוב משהו,"
@@ -179,7 +191,23 @@ class Utility {
         }
         return arrayListOf(stMessage1,stMessage2,stMessage3,stMessage4,stBackBtn,stAnimation)
     }
+/* class UserDataMenager2 {
+   var a=0
+    lateinit var deffered :Deferred<Int>
 
+    suspend fun getTotalUserCount():Int{
+        // this is c  not C     in the coroutine
+        coroutineScope {
+             deffered=async (Dispatchers.IO){
+                delay(1000)
+                a=102
+              var c=a
+                return@async c
+            }
+        }
+        return deffered.await()
+    }
+}*/
 
     /*   fun createDialoge(  contex:Context,title:String,body:String) {
            val alertDialog = AlertDialog.Builder(contex, R.style.RoundedCornerDialog).create()

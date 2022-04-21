@@ -3,7 +3,10 @@ package com.sg.pager20.activities
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.widget.Toast
+import coil.request.Disposable
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
@@ -23,14 +26,18 @@ class RegisterActivity : AppCompatActivity() {
     lateinit var binding: ActivityRegisterBinding
     private lateinit var auth: FirebaseAuth
     val util = Utility()
-    val utilC=UtilCoutine()
+    val uil10=Utilities1()
+ // val utilC = UtilCoutine()
     val posts = ArrayList<Post>()
     private val coroutinScope = CoroutineScope(Dispatchers.Main)
-     var fullNameString = ""
-     var nameString = ""
+    var fullNameString = ""
+    var nameString = ""
     var emailString = ""
     var passwordString = ""
-    var textSelector1=0
+    var emptyTV: Boolean = false
+    var userExist  : Boolean = false
+    var bo3: Boolean = false
+    var bo4: Boolean = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,25 +49,206 @@ class RegisterActivity : AppCompatActivity() {
         demiData()
 
         binding.btnRegister.setOnClickListener {
-            onBackPressed()
         }
         binding.saveRegisterBtn.setOnClickListener {
+            coroutinScope.launch {
+                newUserRegistration()
 
-            newUserRegistration()
-
+            }
         }
-
-        testBtn()
+      testBtn()
     }
 
     private fun demiData() {
-       binding.usernameRegister.setText("")
-      //  binding.usernameRegister.setText("Papi100")
+        binding.usernameRegister.setText("")
+        //  binding.usernameRegister.setText("Papi100")
         binding.mailRegister.setText("pap100@papi1.gmail")
         binding.passwordRegister.setText("111111")
     }
 
-    fun newUserRegistration() {
+    private fun readData() {
+        nameString = binding.usernameRegister.getText().toString()
+        emailString = binding.mailRegister.getText().toString()
+        passwordString = binding.passwordRegister.getText().toString()
+        // util.logi("RegisterActivity  98  inside  readdata  ==> emailString=${emailString}")
+    }
+
+
+
+    suspend fun newUserRegistration() {
+        readData()
+        bo3=false
+       emptyTV = chkIfTextViewEmpty()
+        println("gg:  RegisterActivity newUserRegisteration  79            emptyTV=$emptyTV      nameString=$nameString     emailString=$emailString    passwordString=$passwordString")
+        if (!emptyTV){
+          CoroutineScope(Dispatchers.Main).launch {
+               // userExist= uil10.chkIfUserNameExist2(nameString)
+                var num= uil10.chkIfUserNameExist2(nameString)
+                println("gg:  RegisterActivity newUserRegisteration  85               num=$num   nameString=$nameString  ")
+               /* if (userExist){
+                    util.createDialog(this@RegisterActivity, 12)
+                }*/
+           }
+
+        }
+
+
+
+
+
+
+
+
+
+      //  if (!bo1 && !bo2){
+
+             //util.logi("RegisterActivity  80  inside  newUserRegistration   ==> bo2=$bo2")
+
+
+
+       // }
+
+    }
+
+    private fun chkIfTextViewEmpty(): Boolean {
+        var bol = false
+//       util.logi("RegisterActivity 103  inside  chkIfTextViewEmpty      =======>   bol=${nameString==""} ")
+        when {
+            nameString.isEmpty() -> {
+               util.createDialog(this, 6)
+                bol = true
+            }
+            emailString == "" -> {
+               util.createDialog(this, 7)
+                bol = true
+            }
+            passwordString == "" -> {
+              util.createDialog(this, 8)
+                bol = true
+            }
+        }
+       // util.logi("RegisterActivity 100 inside  chkIfTextViewEmpty      =======>   bol=$bol ")
+        return bol
+    }
+
+   /* private fun chkIfUserNameExist(): Boolean {
+        // util.logi("RegisterActivity 92 ")
+        var userN = nameString
+        var boo = false
+        FirebaseFirestore.getInstance().collection(USER_REF).addSnapshotListener { value, error ->
+            if (value != null) {
+                boo=false
+                for (doc in value.documents) {
+                    var user = util.retrieveUserFromFirestore(doc)
+                    if (user.userName == userN) {
+                        boo = true
+                        util.logi("RegisterActivity 131  inside  chkIfUserNameExist   ==> boo=$boo")
+
+                        util.createDialog(this, 12)
+
+                    }
+                }
+            }
+        }
+       util.logi("RegisterActivity 139      inside   chkIfUserNameExist ==============> boo=$boo ")
+        return boo
+    }*/
+
+    private fun chkIfUserNameExist1(): Boolean {
+        // util.logi("RegisterActivity 92 ")
+        /*firestore.collection("users").whereEqualTo("id", YOUR_USER_ID).limit(1).get()
+.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                      if (task.isSuccessful()) {
+                        // You can check here if document exist.
+                        // It will be empty if it doesnt.
+                        boolean isEmpty = task.getResult().isEmpty();
+                      }
+                    }
+                });
+           */
+        var userN = binding.usernameRegister.text.toString()
+      //  val gl= FirebaseFirestore.getInstance().collection().whereEqualTo(USER_USERNAME,userN).limit(1).get()
+//        val existUserDeffer=doWorkAsync(userN)
+
+//        val exsitUser=existUserDeffer.await()
+
+
+
+      /*  FirebaseFirestore.getInstance().collection().whereEqualTo(USER_USERNAME,userN).limit(1).get()
+            .addOnCompleteListener { task->
+                if (task.isSuccessful()){
+                    val isEmpty=task.result.isEmpty
+                }
+            }*/
+
+         return false
+
+    }
+
+   /* fun doWorkAsync(userN: String): Deferred<Int> = GlobalScope.async {
+          val sami= FirebaseFirestore.getInstance().collection().whereEqualTo(USER_USERNAME,userN).limit(1).get()
+      return@async 42
+}*/
+
+
+   /* async function docExists(docName, docId) {
+        const docRef = db.collection(docName).doc(docId);
+        let docSnapshot = await docRef.get();
+        if (docSnapshot.exists) {
+            return true;
+        } else {
+            return false;
+        }
+    }*/
+
+
+
+    fun creaUserInFirestore(bo:Boolean):Boolean{
+        var boo=bo
+
+        return boo
+    }
+
+
+    private fun createNewUser(bo:Boolean): Boolean {
+       var  boo=bo
+        boo=true
+        // util.logi("RegisterActivity 110    email=$email            password=$password ")
+        auth.createUserWithEmailAndPassword(emailString, passwordString)
+            .addOnSuccessListener { result ->
+                val changeRequest = UserProfileChangeRequest.Builder()
+                    .setDisplayName(nameString)
+                    .build()
+                result.user?.updateProfile(changeRequest)?.addOnFailureListener {
+                    //   util.logi("RegisterActivity  94  failler ==> ${it.localizedMessage}")
+                }
+                saveUserInfo(fullNameString, nameString, emailString, passwordString)
+            }.addOnFailureListener {
+                boo = false
+                //  util.logi("RegisterActivity  133   inside createNewUser  ==> ${it.localizedMessage}")
+                val st1 = "The email address is already in use by another account."
+                val st2 =
+                    "The given password is invalid. [ Password should be at least 6 characters ]"
+                val st3 = "The email address is badly formatted."
+              //  util.logi("RegisterActivity  167  inside  creatNewUser  ==> ${it.localizedMessage}")
+              //  util.logi("RegisterActivity  168  inside  creatNewUser  ==> emailString=${emailString}")
+                if (it.localizedMessage == st1) {
+                    util.createDialog(this, 9)
+                }
+                if (it.localizedMessage == st2) {
+                    util.createDialog(this, 10)
+                }
+                if (it.localizedMessage == st3) {
+                    util.createDialog(this, 11)
+                }
+            }
+        //util.logi("RegisterActivity  154   inside createNewUser      bol=$boo")
+        return boo
+    }
+
+    /*  fun newUserRegistration() {
         readData()
         /*  coroutinScope.launch {
             val originalDeffer = coroutinScope.async(Dispatchers.IO) { getOriginalBitmap() }
@@ -180,6 +368,7 @@ class RegisterActivity : AppCompatActivity() {
         util.logi("RegisterActivity  154   inside createNewUser      bol=$bol")
         return bol
     }
+*/
 
 
     private fun chkUserNamePlus(bo: Boolean): Boolean {
